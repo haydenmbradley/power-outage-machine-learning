@@ -235,10 +235,10 @@ Finally, I decided to switch to a random forest regressor to better capture the 
         frameborder="0">
  </iframe>
 
- | Performance Metric | Performance |
-|----------|----------|
-| Mean Squared Error | 9066.514600721574 |
-| R² Score | 0.18413959561194515 |
+ | Performance Metric | Initial Performance | Final Performance |
+|----------|----------|----------|
+| Mean Squared Error | 10193.898269331174 | 9066.514600721574 |
+| R² Score | 0.08269072178571046 | 0.18413959561194515 |
 
 Our R^2 has bumped up to 0.18 which is a vast improvement over our initial model. In addition, we can clearly see based on the graph above that the predictions (orange) do a better job of capturing the spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline.
  
