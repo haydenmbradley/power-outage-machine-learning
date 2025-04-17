@@ -109,17 +109,91 @@ Since there were 443 missing values, the imputation did slightly alter the distr
 
 ### Interesting Aggregates
 
-| Region | Mean Duration | Std Duration |
-|----------|----------|----------|
-|Central|	45.02	|71.81|
-|East North Central	|89.2	|199.74|
-|Northeast	|49.86|	87.14|
-|Northwest|	21.41|	46.14|
-|South|	47.44	|85.48|
-|Southeast	|36.96	|60.47|
-|Southwest	|26.1	|123.08|
-|West|	27.14|	78.48|
-|West North Central|	16.28	|47.79|
+### Interesting Aggregates
+
+| Region              | Mean Duration | Std Duration |
+|---------------------|---------------|--------------|
+| Central             | 45.02         | 71.81        |
+| East North Central  | 89.20         | 199.74       |
+| Northeast           | 49.86         | 87.14        |
+| Northwest           | 21.41         | 46.14        |
+| South               | 47.44         | 85.48        |
+| Southeast           | 36.96         | 60.47        |
+| Southwest           | 26.10         | 123.08       |
+| West                | 27.14         | 78.48        |
+| West North Central  | 16.28         | 47.79        |
+
+| Climate              | Mean Duration | Std Duration |
+|---------------------|---------------|--------------|
+| Cold             | 44.33         | 112.40        |
+| Normal  | 42.46         | 89.66       |
+| Warm           | 47.47         | 100.45       |
+
+| NERC Region   | Mean Duration | Std Duration |
+|---------------|---------------|---------------|
+| ECAR          | 93.39         | 49.89         |
+| FRCC          | 71.19         | 95.83         |
+| FRCC, SERC    | 6.20          | NaN           |
+| MRO           | 51.14         | 82.14         |
+| NPCC          | 54.37         | 112.61        |
+| RFC           | 58.10         | 128.61        |
+| SERC          | 28.97         | 54.90         |
+| SPP           | 44.90         | 71.07         |
+| TRE           | 49.34         | 90.35         |
+| WECC          | 24.80         | 82.11         |
+
+### Average Outage Duration by U.S. State
+
+| U.S. State             | Mean Duration | Std Duration |
+|------------------------|---------------|---------------|
+| Alabama                | 19.21         | 20.96         |
+| Arizona                | 75.88         | 225.40        |
+| Arkansas               | 25.24         | 42.85         |
+| California             | 27.77         | 79.76         |
+| Colorado               | 15.02         | 21.38         |
+| Connecticut            | 21.31         | 32.39         |
+| Delaware               | 2.42          | 11.26         |
+| District of Columbia   | 71.73         | 85.92         |
+| Florida                | 68.24         | 94.64         |
+| Georgia                | 22.42         | 16.34         |
+| Idaho                  | 6.91          | 8.94          |
+| Illinois               | 26.71         | 29.41         |
+| Indiana                | 58.69         | 96.24         |
+| Iowa                   | 79.90         | 120.27        |
+| Kansas                 | 72.94         | 108.09        |
+| Kentucky               | 84.90         | 120.65        |
+| Louisiana              | 68.08         | 110.34        |
+| Maine                  | 18.28         | 19.89         |
+| Maryland               | 38.55         | 48.21         |
+| Massachusetts          | 15.74         | 23.60         |
+| Michigan               | 88.38         | 151.50        |
+| Minnesota              | 45.47         | 44.07         |
+| Mississippi            | 1.40          | 2.41          |
+| Missouri               | 56.23         | 77.35         |
+| Nebraska               | 40.93         | 79.39         |
+| Nevada                 | 9.22          | 13.42         |
+| New Hampshire          | 4.66          | 11.18         |
+| New Jersey             | 74.18         | 74.41         |
+| New Mexico             | 2.34          | 2.34          |
+| New York               | 100.58        | 151.32        |
+| North Carolina         | 24.29         | 32.92         |
+| North Dakota           | 12.00         | NaN           |
+| Ohio                   | 47.80         | 58.76         |
+| Oklahoma               | 50.32         | 63.90         |
+| Oregon                 | 12.78         | 21.00         |
+| Pennsylvania           | 63.53         | 59.35         |
+| South Carolina         | 52.25         | 47.16         |
+| Tennessee              | 17.37         | 24.55         |
+| Texas                  | 45.08         | 85.90         |
+| Utah                   | 4.17          | 10.80         |
+| Vermont                | 0.59          | 0.88          |
+| Virginia               | 17.52         | 22.06         |
+| Washington             | 25.14         | 52.41         |
+| West Virginia          | 116.32        | 135.58        |
+| Wisconsin              | 131.74        | 413.40        |
+| Wyoming                | 0.56          | 0.72          |
+
+
 
 ## Framing a Prediction Problem
 
