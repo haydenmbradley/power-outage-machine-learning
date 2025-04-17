@@ -30,17 +30,18 @@ This dataset contains 1534 rows, each representing an individual outage event, a
 ### Data Cleaning
 
 Before we are able to analyze our data effectively, we must first look at what to do with missing values. We see that 1493 of the 1534 columns contain atleast one null value, meaning if we were to remove all of these columns we would have very little data left to work with. In order to tackle this, let's first focus on just the variables that will be useful for our analysis.
-| Variable | Number of Null Values |
-|----------|----------|
-|OUTAGE.START    |        9|
-|CLIMATE.REGION   |       6|
-|CLIMATE.CATEGORY   |     9|
-|CAUSE.CATEGORY     |     0|
-|CUSTOMERS.AFFECTED  |  443|
-|ANOMALY.LEVEL      |     9|
-|NERC.REGION        |     0|
-|U.S._STATE         |     0|
-|OUTAGE.DURATION    |    58|
+| Variable             | Number of Null Values |
+|----------------------|------------------------|
+| OUTAGE.START         | 9                      |
+| CLIMATE.REGION       | 6                      |
+| CLIMATE.CATEGORY     | 9                      |
+| CAUSE.CATEGORY       | 0                      |
+| CUSTOMERS.AFFECTED   | 443                    |
+| ANOMALY.LEVEL        | 9                      |
+| NERC.REGION          | 0                      |
+| U.S._STATE           | 0                      |
+| OUTAGE.DURATION      | 58                     |
+
 
 Since variables like CLIMATE.REGION, CLIMATE.CATEGORY, and ANOMALY.LEVEL are all specific data points that are not easy to predict, and there are not that many null values for these categories, we will simply remove all rows where these columns are null. Additionally, since we will eventually try to predict OUTAGE.DURATION, it does not make sense to impute values here which would introduce bias into our model. Therefore, we will also remove all rows where OUTAGE.DURATION is null. This leaves us with 1471 rows of data which should still be plenty to perform a thorough analysis.
 
@@ -64,17 +65,17 @@ Here is the distribution after:
 
 Since there were 443 missing values, the imputation did slightly alter the distribution. Nevertheless, the general shape remains the same and now we have no more remaining null values. In our remaining 1466 rows:
 
-| Variable | Number of Null Values |
-|----------|----------|
-|OUTAGE.START    |        0|
-|CLIMATE.REGION   |       0|
-|CLIMATE.CATEGORY   |     0|
-|CAUSE.CATEGORY     |     0|
-|CUSTOMERS.AFFECTED  |    0|
-|ANOMALY.LEVEL      |     0|
-|NERC.REGION        |     0|
-|U.S._STATE         |     0|
-|OUTAGE.DURATION    |     0|
+| Variable             | Number of Null Values |
+|----------------------|------------------------|
+| OUTAGE.START         | 0                      |
+| CLIMATE.REGION       | 0                      |
+| CLIMATE.CATEGORY     | 0                      |
+| CAUSE.CATEGORY       | 0                      |
+| CUSTOMERS.AFFECTED   | 0                      |
+| ANOMALY.LEVEL        | 0                      |
+| NERC.REGION          | 0                      |
+| U.S._STATE           | 0                      |
+| OUTAGE.DURATION      | 0                      |
 
 ### Univariate Analysis
 
