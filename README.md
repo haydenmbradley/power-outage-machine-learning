@@ -109,7 +109,17 @@ Since there were 443 missing values, the imputation did slightly alter the distr
 
 ### Interesting Aggregates
 
-
+| Region | Mean Duration | Std Duration |
+|----------|----------|----------|
+|Central|	45.02	|71.81|
+|East North Central	|89.2	|199.74|
+|Northeast	|49.86|	87.14|
+|Northwest|	21.41|	46.14|
+|South|	47.44	|85.48|
+|Southeast	|36.96	|60.47|
+|Southwest	|26.1	|123.08|
+|West|	27.14|	78.48|
+|West North Central|	16.28	|47.79|
 
 ## Framing a Prediction Problem
 
