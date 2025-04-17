@@ -131,11 +131,25 @@ For our baseline model, we will use the variables from earlier that seemed to ha
 | R² Score | 0.08269072178571046 |
 
 Unfortunately our initial model only achieved a R^2 of 0.08, which means it barely beats out a model that just predicts the mean. Additionally, we see from the graph above that our predictions (orange) do not seem to estimate the large spikes in the actual durations (blue). Nevertheless, the prediction do accurately predict some small aspect of the variance, giving us hope to improve our final model.
- 
+
+## Final Model
+
+Our final model will take in all the variables from our previous model and incorporate additional ones that might edge our final predictions closer to the real values. These new variables will consist of CLIMATE.CATEGORY, NERC.REDION, and CUSTOMERS.AFFECTED. We will continue to use mean squared error to evaluate our final model for the same reasons as before (and similarly incorporating R^2 as a benchmark).
+
+In addition, I will engineer a few new variables from our given list. First, I added a polynomial degree three transformation to both of the quantitative variables. These new features help to determine if the impact to outage duration changes in a non-linear way as CUSTOMERS.AFFECTED and ANOMALY.LEVEL increase. This was prompted by an earlier graph which shows instances where OUTAGE.DURATION would increase then decrease then increases again as CUSTOMERS.AFFECTED increased. Secondly, I created a flag based on CAUSE.CATEGORY which shows a 1 if the outage was weather related and a 0 otherwise. This allowed the model to distinguish weather related events which may have a more specific affect on power outages.
+
+Finally, I decided to switch to a random forest regressor to better capture the non-linear relationship between these variables. Since a lot of the relationships are clearly non-linear (based on the graphs above), this model should do much better than the linear regression. In addition, I will use grid search CV on the random forest max depth and number of estimators. The max depth with help find a good balance between bias and variance, and the n_estimators will make sure the model takes into account enough trees so that it generalizes well to new data.
 
  <iframe src="assets/figure8.html"
         width="800"
         height="600"
         frameborder="0">
  </iframe>
+
+ | Performance Metric | Performance |
+|----------|----------|
+| Mean Squared Error | 9066.514600721574 |
+| R² Score | 0.18413959561194515 |
+
+Our R^2 has bumped up to 0.18 which is a vast improvement over our initial model. In addition, we can clearly see based on the graph above that the predictions (orange) do a better job of capturing the spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline.
  
