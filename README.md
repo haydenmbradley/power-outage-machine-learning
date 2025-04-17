@@ -31,6 +31,7 @@ This dataset contains 1534 rows, each representing an individual outage event, a
 
 Before we are able to analyze our data effectively, we must first look at what to do with missing values. We see that 1493 of the 1534 columns contain atleast one null value, meaning if we were to remove all of these columns we would have very little data left to work with. In order to tackle this, let's first focus on just the variables that will be useful for our analysis.
 | Variable | Number of Null Values |
+|----------|----------|
 |OUTAGE.START    |        9|
 |CLIMATE.REGION   |       6|
 |CLIMATE.CATEGORY   |     9|
