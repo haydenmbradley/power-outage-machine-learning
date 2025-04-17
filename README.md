@@ -1,5 +1,4 @@
-# power-outage-machine-learning
-Can we use data on major power outages to predict their duration?
+# Can we predict the duration of major power outages?
 
 ## Introduction
 
