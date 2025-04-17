@@ -240,5 +240,5 @@ Finally, I decided to switch to a random forest regressor to better capture the 
 | Mean Squared Error | 10193.898269331174 | 9066.514600721574 |
 | R² Score | 0.08269072178571046 | 0.18413959561194515 |
 
-Our R^2 has bumped up to 0.18 which is a vast improvement over our initial model. In addition, we can clearly see based on the graph above that the predictions (orange) do a better job of capturing the spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline.
+Our R^2 has bumped up to 0.18 which is a vast improvement over our initial model, while reducing our MSE by more than 1000. In addition, we can clearly see based on the graph above that the predictions (orange) do a better job of capturing the spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline, giving us a solid starting point for predicting outage duration on unseen data.
  
