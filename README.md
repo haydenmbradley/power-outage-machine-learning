@@ -110,6 +110,7 @@ Since there were 443 missing values, the imputation did slightly alter the distr
 
 ### Interesting Aggregates
 
+#### Outage Duration by Region
 
 | Region              | Mean Duration | Std Duration |
 |---------------------|---------------|--------------|
@@ -123,7 +124,7 @@ Since there were 443 missing values, the imputation did slightly alter the distr
 | West                | 27.14         | 78.48        |
 | West North Central  | 16.28         | 47.79        |
 
-
+#### Outage Duration by Climate
 
 | Climate              | Mean Duration | Std Duration |
 |---------------------|---------------|--------------|
@@ -131,7 +132,7 @@ Since there were 443 missing values, the imputation did slightly alter the distr
 | Normal  | 42.46         | 89.66       |
 | Warm           | 47.47         | 100.45       |
 
-
+#### Outage Duration by NERC Region
 
 | NERC Region   | Mean Duration | Std Duration |
 |---------------|---------------|---------------|
@@ -146,7 +147,7 @@ Since there were 443 missing values, the imputation did slightly alter the distr
 | TRE           | 49.34         | 90.35         |
 | WECC          | 24.80         | 82.11         |
 
-
+#### Outage Duration by State
 
 | U.S. State             | Mean Duration | Std Duration |
 |------------------------|---------------|---------------|
