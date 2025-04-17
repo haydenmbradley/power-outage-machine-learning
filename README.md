@@ -46,6 +46,7 @@ Since variables like CLIMATE.REGION, CLIMATE.CATEGORY, and ANOMALY.LEVEL are all
 
 ### Imputation
 
+Since the 'CUSTOMERS.AFFECTED' column is an important column with a lot of missing values, we cannot simply remove all its null values. Instead, we will perform an imputation which attempts to accurately replace these values. Since these values appear to be missing at random, we can use the strategy of mean imputation. To be even more specific, we will group the mean values based on state, because outages within the same state tended to be closer in the 'CUSTOMERS.AFFECTED' than between different states. Here is the distribution of 'CUSTOMERS.AFFECTED' before the imputations:
 
 <iframe src="assets/figure1.html"
         width="800"
@@ -53,7 +54,7 @@ Since variables like CLIMATE.REGION, CLIMATE.CATEGORY, and ANOMALY.LEVEL are all
         frameborder="0">
  </iframe>
 
-Now let us apply these imputations:
+Here is the distribution after:
 
  <iframe src="assets/figure2.html"
         width="800"
@@ -61,7 +62,21 @@ Now let us apply these imputations:
         frameborder="0">
  </iframe>
 
+Since there were 443 missing values, the imputation did slightly alter the distribution. Nevertheless, the general shape remains the same and now we have no more remaining null values. In our remaining 1466 rows:
 
+| Variable | Number of Null Values |
+|----------|----------|
+|OUTAGE.START    |        0|
+|CLIMATE.REGION   |       0|
+|CLIMATE.CATEGORY   |     0|
+|CAUSE.CATEGORY     |     0|
+|CUSTOMERS.AFFECTED  |    0|
+|ANOMALY.LEVEL      |     0|
+|NERC.REGION        |     0|
+|U.S._STATE         |     0|
+|OUTAGE.DURATION    |     0|
+
+### Univariate Analysis
 
  
  <iframe src="assets/figure3.html"
@@ -75,6 +90,10 @@ Now let us apply these imputations:
         height="600"
         frameborder="0">
  </iframe>
+
+
+### Bivariate Analysis
+
  
  <iframe src="assets/figure5.html"
         width="800"
@@ -88,11 +107,31 @@ Now let us apply these imputations:
         frameborder="0">
  </iframe>
 
+### Interesting Aggregates
+
+
+
+## Framing a Prediction Problem
+
+For the final prediction, I will be trying to answer the question of 'Can we predict the duration of power outages?' This prediction will use various of the collected values in order to predict the output OUTAGE.DURATION. Since OUTAGE.DURATION is in the units of hours, which is a continuous variable, this is a regression problem. In order to make this realistic, I will only use variables that contain information that would be readily available shortly after a power outage has occured. Variables related to the location (U.S._STATE, NERC.REGION), the climate (CLIMATE.REGION, CLIMATE.CATEGORY, ANOMALY.LEVEL), the cause (CAUSE.CATEGORY), and the number of outages (CUSTOMERS.AFFECTED), should all either be identifiable immediately or after a short inspection following the initial outage. For these reasons, I think all these variables are fair game. Finally, since this is a regression task and a situation where outliers (long outages) are important to be predicted properly, I will be using Mean Squared Error to evaluate my model. The MSE will penalize these large errors ensuring proper prediction of longer outages. I will also use R^2 as a comparison baseline to see how each iteration of the model compares with each other.
+
+## Baseline Model
+
+For our baseline model, we will use the variables from earlier that seemed to have the most predictive impact and that could be immediately determined once the location of the power outage is given. This will give an initial model which we can evaluate then iterate upon. For this initial model we will one hot encode all of the categorical variables and standard scale the quantitative (which will not improve the effectiveness of the model but will help us analyze the coefficients). In addition, to keep our model quick and simple, we will use a Linear Regression.
+
  <iframe src="assets/figure7.html"
         width="800"
         height="600"
         frameborder="0">
  </iframe>
+
+| Performance Metric | Performance |
+|----------|----------|
+| Mean Squared Error | 10193.898269331174 |
+| R² Score | 0.08269072178571046 |
+
+Unfortunately our initial model only achieved a R^2 of 0.08, which means it barely beats out a model that just predicts the mean. Additionally, we see from the graph above that our predictions (orange) do not seem to estimate the large spikes in the actual durations (blue). Nevertheless, the prediction do accurately predict some small aspect of the variance, giving us hope to improve our final model.
+ 
 
  <iframe src="assets/figure8.html"
         width="800"
