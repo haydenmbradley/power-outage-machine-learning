@@ -12,8 +12,43 @@ In this project we will be looking at data on major power outage event in the Un
         frameborder="0">
  </iframe>
 
-
  <iframe src="assets/figure2.html"
+        width="800"
+        height="600"
+        frameborder="0">
+ </iframe>
+ 
+ <iframe src="assets/figure3.html"
+        width="800"
+        height="600"
+        frameborder="0">
+ </iframe>
+
+ <iframe src="assets/figure4.html"
+        width="800"
+        height="600"
+        frameborder="0">
+ </iframe>
+ 
+ <iframe src="assets/figure5.html"
+        width="800"
+        height="600"
+        frameborder="0">
+ </iframe>
+
+ <iframe src="assets/figure6.html"
+        width="800"
+        height="600"
+        frameborder="0">
+ </iframe>
+
+ <iframe src="assets/figure7.html"
+        width="800"
+        height="600"
+        frameborder="0">
+ </iframe>
+
+ <iframe src="assets/figure8.html"
         width="800"
         height="600"
         frameborder="0">
