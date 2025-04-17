@@ -14,12 +14,16 @@ This dataset contains 1534 rows, each representing an individual outage event, a
 | MONTH    | Indicates the month when the outage event occurred  |
 | U.S._STATE    |  Represents all the states in the continental U.S.  |
 | NERC.REGION    |  The North American Electric Reliability Corporation (NERC) regions involved in the outage event   |
-| Row 5    |          |
-| Row 6    |          |
-| Row 7    |          |
-| Row 8    |          |
-| Row 9    |          |
-| Row 10   |          |
+| CLIMATE.REGION   | U.S. Climate regions as specified by National Centers for Environmental Information   |
+| CLIMATE.CATEGORY   |  This represents the climate episodes corresponding to the years   |
+| ANOMALY.LEVEL   |  This represents the oceanic El Niño/La Niña (ONI) index referring to the cold and warm episodes by season   |
+| OUTAGE.START.DATE   |  	This variable indicates the day of the year when the outage event started  |
+| OUTAGE.START.TIME   |  This variable indicates the time of the day when the outage event started  |
+| OUTAGE.RESTORATION.DATE  |  This variable indicates the day of the year when power was restored to all the customers   |
+| OUTAGE.RESTORATION.TIME  |   This variable indicates the time of the day when power was restored to all the customers |
+| OUTAGE.DURATION  |   Duration of outage events (in minutes)  |
+| CAUSE.CATEGORY   |          |
+| CUSTOMERS.AFFECTED  |   Number of customers affected by the power outage event   |
 
 
 
