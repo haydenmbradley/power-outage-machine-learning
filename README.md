@@ -10,10 +10,10 @@ This dataset contains 1534 rows, each representing an individual outage event, a
 
 | Variable | Description |
 |----------|----------|
-| YEAR    | Indicates the year when the outage event occurred |
-| MONTH    | Indicates the month when the outage event occurred  |
-| U.S._STATE    |  Represents all the states in the continental U.S.  |
-| NERC.REGION    |  The North American Electric Reliability Corporation (NERC) regions involved in the outage event   |
+| `YEAR`    | Indicates the year when the outage event occurred |
+| `MONTH`    | Indicates the month when the outage event occurred  |
+| `U.S._STATE`    |  Represents all the states in the continental U.S.  |
+| `NERC.REGION`    |  The North American Electric Reliability Corporation (NERC) regions involved in the outage event   |
 | CLIMATE.REGION   | U.S. Climate regions as specified by National Centers for Environmental Information   |
 | CLIMATE.CATEGORY   |  This represents the climate episodes corresponding to the years   |
 | ANOMALY.LEVEL   |  This represents the oceanic El Niño/La Niña (ONI) index referring to the cold and warm episodes by season   |
