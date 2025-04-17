@@ -42,6 +42,10 @@ Before we are able to analyze our data effectively, we must first look at what t
 |U.S._STATE         |     0|
 |OUTAGE.DURATION    |    58|
 
+Since variables like CLIMATE.REGION, CLIMATE.CATEGORY, and ANOMALY.LEVEL are all specific data points that are not easy to predict, and there are not that many null values for these categories, we will simply remove all rows where these columns are null. Additionally, since we will eventually try to predict OUTAGE.DURATION, it does not make sense to impute values here which would introduce bias into our model. Therefore, we will also remove all rows where OUTAGE.DURATION is null. This leaves us with 1471 rows of data which should still be plenty to perform a thorough analysis.
+
+### Imputation
+
 
 <iframe src="assets/figure1.html"
         width="800"
@@ -49,11 +53,16 @@ Before we are able to analyze our data effectively, we must first look at what t
         frameborder="0">
  </iframe>
 
+Now let us apply these imputations:
+
  <iframe src="assets/figure2.html"
         width="800"
         height="600"
         frameborder="0">
  </iframe>
+
+
+
  
  <iframe src="assets/figure3.html"
         width="800"
