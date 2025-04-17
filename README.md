@@ -50,7 +50,7 @@ Since the 'CUSTOMERS.AFFECTED' column is an important column with a lot of missi
 
 <iframe src="assets/figure1.html"
         width="800"
-        height="600"
+        height="300"
         frameborder="0">
  </iframe>
 
@@ -58,7 +58,7 @@ Here is the distribution after:
 
  <iframe src="assets/figure2.html"
         width="800"
-        height="600"
+        height="400"
         frameborder="0">
  </iframe>
 
@@ -81,7 +81,7 @@ Since there were 443 missing values, the imputation did slightly alter the distr
  
  <iframe src="assets/figure3.html"
         width="800"
-        height="600"
+        height="500"
         frameborder="0">
  </iframe>
 
