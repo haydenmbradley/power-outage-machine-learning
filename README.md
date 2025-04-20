@@ -98,7 +98,7 @@ Since there were 443 missing values, the imputation did slightly alter the distr
  
  <iframe src="assets/figure5.html"
         width="800"
-        height="475"
+        height="500"
         frameborder="0">
  </iframe>
 
