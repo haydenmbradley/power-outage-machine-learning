@@ -135,6 +135,8 @@ Although this graph seems to be somewhat chaotic at first glance, we do see that
 
 ### Interesting Aggregates
 
+Finally, for the last stage of my exploratory analysis, I looked at aggregate statistics of several groupings that should help reveal what variables will carry predictive weight for `OUTAGE.DURATION`.
+
 #### Outage Duration by Region
 
 | Region              | Mean Duration | Std Duration |
@@ -149,6 +151,8 @@ Although this graph seems to be somewhat chaotic at first glance, we do see that
 | West                | 27.14         | 78.48        |
 | West North Central  | 16.28         | 47.79        |
 
+This table shows that `OUTAGE.DURATION` varies considerably across `CLIMATE.REGION`, pointing to the fact that it might be an important feature for prediction. This is likely because the region captures underlying factors such as weather patterns, infrustructure, and population dynamics, that impact outages.
+
 #### Outage Duration by Climate
 
 | Climate              | Mean Duration | Std Duration |
@@ -156,6 +160,8 @@ Although this graph seems to be somewhat chaotic at first glance, we do see that
 | Cold             | 44.33         | 112.40        |
 | Normal  | 42.46         | 89.66       |
 | Warm           | 47.47         | 100.45       |
+
+Despite the climate type seeming like it would have predictive power, the table shows far less variability in `OUTAGE.DURATION` based on `CLIMATE.CATEGORY`. This means we will likely prioritize other variables before resorting to `CLIMATE.CATEGORY` in our model.
 
 #### Outage Duration by NERC Region
 
@@ -171,6 +177,8 @@ Although this graph seems to be somewhat chaotic at first glance, we do see that
 | SPP           | 44.90         | 71.07         |
 | TRE           | 49.34         | 90.35         |
 | WECC          | 24.80         | 82.11         |
+
+Similarly to the first table, we see notable differences in `OUTAGE.DURATION` based on `NERC.REGION`. Since `NERC.REGION` also corresponds to large sections of the U.S., we might get some degree of redundancy including both `NERC.REGION` and `CLIMATE.REGION` in our final model. This introduces multicollinearity which would make certain linear models unstable, but that could be avoided using tree-based models. This is important to note, and will guide us to use only one of the two if incorporating a linear model.
 
 #### Outage Duration by State
 
@@ -223,15 +231,16 @@ Although this graph seems to be somewhat chaotic at first glance, we do see that
 | Wisconsin              | 131.74        | 413.40        |
 | Wyoming                | 0.56          | 0.72          |
 
+Finally, we zoom into each region and see a large degree of variation across each `U.S._STATE`. Since these are far more specific than any larger regions, we can safely add this variable into our model, which will likely have a meaningful predictive power.
 
 
 ## Framing a Prediction Problem
 
-For the final prediction, I will be trying to answer the question of 'Can we predict the duration of power outages?' This prediction will use various of the collected values in order to predict the output `OUTAGE.DURATION`. Since `OUTAGE.DURATION` is in the units of hours, which is a continuous variable, this is a regression problem. In order to make this realistic, I will only use variables that contain information that would be readily available shortly after a power outage has occured. Variables related to the location (`U.S._STATE`, `NERC.REGION`), the climate (`CLIMATE.REGION`, `CLIMATE.CATEGORY`, `ANOMALY.LEVEL`), the cause (`CAUSE.CATEGORY`), and the number of outages (`CUSTOMERS.AFFECTED`), should all either be identifiable immediately or after a short inspection following the initial outage. For these reasons, I think all these variables are fair game. Finally, since this is a regression task and a situation where outliers (long outages) are important to be predicted properly, I will be using Mean Squared Error to evaluate my model. The MSE will penalize these large errors ensuring proper prediction of longer outages. I will also use R^2 as a comparison baseline to see how each iteration of the model compares with each other.
+For the final prediction, I will be trying to answer the question of 'Can we predict the duration of power outages?' This prediction will make use of the power outage dataset in order to predict the target variable `OUTAGE.DURATION`. Being able to accurately estimate the duration of outages could be incredibly valuable for guiding public expectations and both personal and government resource allocation during severe power outages. Since `OUTAGE.DURATION` is in the units of hours, which is a continuous variable, this is a regression problem. In order to make this realistic, I will only use variables that contain information that would be readily available shortly after a power outage has occured. Variables related to the location (`U.S._STATE`, `NERC.REGION`), the climate (`CLIMATE.REGION`, `CLIMATE.CATEGORY`, `ANOMALY.LEVEL`), the cause (`CAUSE.CATEGORY`), and the number of impacted customers (`CUSTOMERS.AFFECTED`), should all either be identifiable either immediately after or following a short inspection after the initial outage. For these reasons, I think all these variables are fair game. Finally, since this is a regression task and a situation where outliers (long outages) are very important to be predicted properly, I will be using Mean Squared Error to evaluate my model. The MSE will penalize larger errors more heavily, ensuring proper prediction of longer outages. I will also use R^2 as a normalized performance baseline to easily compare different iterations of the model.
 
 ## Baseline Model
 
-For our baseline model, we will use the variables from earlier that seemed to have the most predictive impact and that could be immediately determined once the location of the power outage is given. This will give an initial model which we can evaluate then iterate upon. For this initial model we will one hot encode all of the categorical variables and standard scale the quantitative (which will not improve the effectiveness of the model but will help us analyze the coefficients). In addition, to keep our model quick and simple, we will use a Linear Regression.
+For the baseline model, I will use the variables from earlier that seemed to have the most predictive impact and that could be immediately determined once the location of the power outage is given. This will give an initial model which I can evaluate then iterate upon. For this initial model we will one hot encode all of the categorical variables and standard scale the quantitative (which will not improve the effectiveness of the model but will help us analyze the coefficients). In addition, to keep our model quick and simple, we will use a Linear Regression.
 
  <iframe src="assets/figure7.html"
         width="800"
