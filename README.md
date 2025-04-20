@@ -75,7 +75,7 @@ For the `CUSTOMERS.AFFECTED` variable, I decided to use a median imputation stra
         frameborder="0">
  </iframe>
 
-Since there were 443 missing values, the imputation did slightly alter the distribution. Nevertheless, the general shape remains the same and now we have no more remaining null values. In our remaining 1466 rows:
+Despite imputation 443 missing values, the distribution appears to remain pretty consistent. With the previous deletions and imputation, we have successfully removed all rows with any null values:
 
 | Variable             | Number of Null Values |
 |----------------------|------------------------|
@@ -91,6 +91,7 @@ Since there were 443 missing values, the imputation did slightly alter the distr
 
 ### Univariate Analysis
 
+In order to get a better understanding of the data before building a predictive model, I looked at various relationships between variables in the dataset. First, I looked at the distribution of the `OUTAGE.DURATION` variable across all entries:
  
  <iframe src="assets/figure3.html"
         width="800"
@@ -98,12 +99,17 @@ Since there were 443 missing values, the imputation did slightly alter the distr
         frameborder="0">
  </iframe>
 
+This chart shows that a vast majority of the outages are very short, which would not be as negatively impactful to those in the outage region. Nevertheless, we see a relatively steady distribution of outages beyond even 24 or 48 hours, with a total of 82 outages that lasted over a week. These extra long outages would likely be the ones that a proper prediction of duration would yield most beneficial. Hopefully our predictive model will be able to find differences between the many short outages and the longer, more series outages.
+
+Next, I looked at the distribution of the `CAUSE.CATEGORY` variable:
+
  <iframe src="assets/figure4.html"
         width="800"
         height="425"
         frameborder="0">
  </iframe>
 
+This visual shows that severe weather is the largest cause, followed relatively closely by intentional attacks. Seeing the difference in number of outages under each category will help verify the solidy of our prediction. This will help add nuance to our predictions, since causes with more data points (more common) may allow us to trust our model's output more than causes with less data points (less common).
 
 ### Bivariate Analysis
 
