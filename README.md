@@ -240,7 +240,14 @@ For the final prediction, I will be trying to answer the question of 'Can we pre
 
 ## Baseline Model
 
-For the baseline model, I will use the variables from earlier that seemed to have the most predictive impact and that could be immediately determined once the location of the power outage is given. This will give an initial model which I can evaluate then iterate upon. For this initial model we will one hot encode all of the categorical variables and standard scale the quantitative (which will not improve the effectiveness of the model but will help us analyze the coefficients). In addition, to keep our model quick and simple, we will use a Linear Regression.
+For the baseline model, I will use the variables from earlier that seemed to have the most obvious predictive impact and that could be immediately determined once the location of the power outage is determined. These specific variables are:
+
+-`CAUSE.CATEGORY` (nominal)
+-`CLIMATE.REGION` (nominal)
+-`U.S._STATE` (nominal)
+-`ANOMALY.LEVEL` (quantitative)
+
+This will give an initial model which I can evaluate and iterate upon. For this initial model I one hot encoded all of the nominal variables and standard scaled the quantitative variables (which will not improve the effectiveness of the model but will allow us to analyze the coefficients if needed). In addition, to keep our model quick and simple, I used a Linear Regression model.
 
  <iframe src="assets/figure7.html"
         width="800"
