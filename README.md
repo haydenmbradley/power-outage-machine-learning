@@ -57,7 +57,9 @@ Since variables like `CLIMATE.REGION`, `CLIMATE.CATEGORY`, and `ANOMALY.LEVEL` a
 
 ### Imputation
 
-The `CUSTOMERS.AFFECTED` column presents more of a challenge because it has 443 missing values. Removing all of these rows would significanlty reduce the dataset size, which could hinder the effectiveness of our predictive model. Instead, we will perform an imputation which attempts to accurately replace these values. Since these values appear to be missing at random, we can use the strategy of mean imputation. To be even more specific, we will group the mean values based on state, because outages within the same state tended to be closer in the `CUSTOMERS.AFFECTED` than between different states. Here is the distribution of `CUSTOMERS.AFFECTED` before the imputations:
+The `CUSTOMERS.AFFECTED` column presents more of a challenge because it has 443 missing values. Removing all of these rows would significanlty reduce the dataset size, which could hinder the effectiveness of our predictive model. Instead, I will perform an imputation which attempts to accurately replace these values. 
+
+For the `CUSTOMERS.AFFECTED` variable, I decided to use a median imputation strategy grouped by `U.S._STATE`. Since these values appear to be missing at random, it is reasonable to impute them using typical values (median or mean). I choose the median specifically, because the data is extremely right skewed, and the median helps preserve the overall distribution more consistently. Additionally, underlying factors like population, geography, infrustructure, etc. would likely influence `CUSTOMERS.AFFECTED`. For this reason, I grouped by `U.S._STATE`, which helps capture these underlying patterns. Here is what the distributions of `CUSTOMERS.AFFECTED` looked like before and after imputation:
 
 <iframe src="assets/figure1.html"
         width="800"
@@ -65,7 +67,7 @@ The `CUSTOMERS.AFFECTED` column presents more of a challenge because it has 443 
         frameborder="0">
  </iframe>
 
-Here is the distribution after:
+
 
  <iframe src="assets/figure2.html"
         width="800"
