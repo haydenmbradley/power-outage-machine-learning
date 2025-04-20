@@ -91,7 +91,7 @@ Despite imputation 443 missing values, the distribution appears to remain pretty
 
 ### Univariate Analysis
 
-In order to get a better understanding of the data before building a predictive model, I looked at various relationships between variables in the dataset. First, I looked at the distribution of the `OUTAGE.DURATION` variable across all entries:
+In order to get a better understanding of the data before building a predictive model, I looked at various relationships between variables in the dataset. First, I conducted a couple univariate analyses, starting with the distribution of the `OUTAGE.DURATION`:
  
  <iframe src="assets/figure3.html"
         width="800"
@@ -113,6 +113,7 @@ This visual shows that severe weather is the largest cause, followed relatively 
 
 ### Bivariate Analysis
 
+Next I will continue my exploration with a bivariate analysis of a few variables. First, I looked at distribution of `OUTAGE.DURATION` across `CAUSE.CATEGORY`:
  
  <iframe src="assets/figure5.html"
         width="800"
@@ -120,11 +121,17 @@ This visual shows that severe weather is the largest cause, followed relatively 
         frameborder="0">
  </iframe>
 
+This figure highlights the point that different outage causes have dramatically different distributions of their resulting power outage durations. This means that incorporating `CAUSE.CATEGORY` into out model could carry meaningful predictive weight.
+
+Continuing, I looked at the relationship between `OUTAGE.DURATION` and `CUSTOMERS.AFFECTED`:
+
  <iframe src="assets/figure6.html"
         width="800"
         height="425"
         frameborder="0">
  </iframe>
+
+Although this graph seems to be somewhat chaotic at first glance, we do see that that for each cause there appears to be general underlying relationships between duration and customers affected. In instances like Severe Weather and Equipment Failure, this relationship seems more linear, while in instances like Intentional Attack and Fuel Supply Emergency, this relationship may be non-linear. Noting the linear and non-linear relationships between these variables will be useful when making our final predictive model.
 
 ### Interesting Aggregates
 
