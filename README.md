@@ -279,17 +279,17 @@ In addition, I will engineer a few new variables from our given list to help bet
 
 Finally, I decided to switch to a `RandomForestRegressor` to better capture the non-linear relationship between these variables and to improve model stability despite the collinearity mentioned earlier. In addition, I will use `GridSearchCV`, which will use cross-validation in order to best tune the models hyperparameters under *neg_mean_squared_error*. I will tune the `RandomForestRegressor`'s:
 
-- `max_depth`: maximum depth of each tree; helps determine balance between bias and variance; values = []
-- `n_estimators`: number of decision trees in forests; helps ensure stability and generalization of model; values = []
-- `min_samples_split`: minimum samples required to split a node; reduces overfitting on noisy data; values = [2, 3, 4, 5]
-- `min_samples_leaf`: minimum samples at a leaf node; improves generalization of model; values = [1, 2, 3, 4]
+- `max_depth`: maximum depth of each tree; helps determine balance between bias and variance; values = `[10, 15, 20, 25]`
+- `n_estimators`: number of decision trees in forests; helps ensure stability and generalization of model; values = `[50, 100, 150, 200]`
+- `min_samples_split`: minimum samples required to split a node; reduces overfitting on noisy data; values = `[2, 3, 4, 5]`
+- `min_samples_leaf`: minimum samples at a leaf node; improves generalization of model; values = `[1, 2, 3, 4]`
 
 After performing `GridSearchCV` on these parameters, the model selected the following hyperparameters:
 
-- `max_depth` = W
-- `n_estimators` = X
-- `min_samples_split` = 2
-- `min_samples_leaf` = 2
+- `max_depth` = 15
+- `n_estimators` = 50
+- `min_samples_split` = 3
+- `min_samples_leaf` = 1
 
 With these parameters, here are the results of our improved final model:
 
