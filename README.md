@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this project, I will be looking at data on major power outage event in the United States. This dataset provides all the important details about when and where these power outages occurred, what circumstances caused the outages, how large an impact these outages had, and details about the environment where these outages took place. Using the necessary aspects of this data, important questions about when, where, why, and how long these outages occur can be explored. In this specific project, I would like to explore the question: Can we predict the duration of power outages given all the information leading up to and including the initial outage? Answering this question can help better set the expectations of those affected by these outages, as well as better channel the efforts of emergency response teams when needed.
+In this project, I will look at data on major power outage events in the United States. This dataset provides all the important details about when and where these power outages occurred, what circumstances caused the outages, how large an impact these outages had, and details about the environment in which these outages took place. Using the necessary aspects of this data, important questions about when, where, why, and how long these outages occur can be explored. In this specific project, I would like to explore the question: "Can we predict the duration of power outages given all the information leading up to and including the initial outage?" Answering this question can help to set better expectations for those affected by these outages, as well as to better channel the efforts of emergency response teams when needed.
 
 ### Exploring The Data
 
@@ -29,7 +29,7 @@ This dataset contains 1534 rows, each representing an individual outage event, a
 
 ### Data Cleaning
 
-In order to access this data, one can download the data from Purdue's engineering website [here](https://engineering.purdue.edu/LASCI/research-data/outages) as an xlsx document. I then loaded it into jupyter notebook using the `pd.read_excel` command. While loading it in, I skipped the first 5 rows and deleted the first column and row of the data, which leaves only the 57 columns and 1534 rows of data. In addition to this, I combined the `OUTAGE.START.DATE` and `OUTAGE.START.TIME` columns into a `pd.Timestamp` column named `OUTAGE.START`. I similarly combined `OUTAGE.RESTORATION.DATE` and `OUTAGE.RESTORATION.TIME` into one column named `OUTAGE.RESTORATION`. On top of this, I divided every `OUTAGE.DURATION` value by 60, to convert it from minutes to hours. Finally I removed the columns of data that are unnecessary to my current investigation, leaving just the columns: `OUTAGE.START`, `CLIMATE.REGION`, `CLIMATE.CATEGORY`, `CAUSE.CATEGORY`, `CUSTOMERS.AFFECTED`, `ANOMALY.LEVEL`, `NERC.REGION`, `U.S._STATE`, and `OUTAGE.DURATION`. With all of this done, here is what the head of my DataFrame looks like:
+In order to access this data, one can download the data from Purdue's engineering website [here](https://engineering.purdue.edu/LASCI/research-data/outages) as an xlsx document. I then loaded it into jupyter notebook using the `pd.read_excel` command. While loading it in, I skipped the first 5 rows and deleted the first column and row of the data, which leaves only the 57 columns and 1534 rows of data. In addition to this, I combined the `OUTAGE.START.DATE` and `OUTAGE.START.TIME` columns into a `pd.Timestamp` column named `OUTAGE.START`. I similarly combined `OUTAGE.RESTORATION.DATE` and `OUTAGE.RESTORATION.TIME` into one column named `OUTAGE.RESTORATION`. On top of this, I divided every `OUTAGE.DURATION` value by 60, to convert it from minutes to hours. Finally, I removed the columns of data that are unnecessary to my current investigation, leaving just the columns: `OUTAGE.START`, `CLIMATE.REGION`, `CLIMATE.CATEGORY`, `CAUSE.CATEGORY`, `CUSTOMERS.AFFECTED`, `ANOMALY.LEVEL`, `NERC.REGION`, `U.S._STATE`, and `OUTAGE.DURATION`. With all of this done, here is what the head of my DataFrame looks like:
 
 | OUTAGE.START        | CLIMATE.REGION     | CLIMATE.CATEGORY   | CAUSE.CATEGORY     | CUSTOMERS.AFFECTED | ANOMALY.LEVEL | NERC.REGION | U.S._STATE | OUTAGE.DURATION |
 |---------------------|--------------------|---------------------|---------------------|---------------------:|----------------:|:-------------|:------------|------------------:|
@@ -39,7 +39,7 @@ In order to access this data, one can download the data from Purdue's engineerin
 | 2012-06-19 04:30:00 | East North Central | normal              | severe weather      |               68200 |           -0.1 | MRO         | Minnesota   |             2550 |
 | 2015-07-18 02:00:00 | East North Central | warm                | severe weather      |              250000 |            1.2 | MRO         | Minnesota   |             1740 |
 
-With this initial data cleaning done, I shifted to the task of dealing with null values. Using a quick query for all remaining null cells, I determined that 483 rows contained atleast one null value. This means if we were to remove all of these rows, we would erase nearly 30% of our data. In order to tackle this more effectively, let's focus on each of these variables one by one.
+With this initial data cleaning done, I shifted to the task of dealing with null values. Using a quick query for all remaining null cells, I determined that 483 rows contained at least one null value. This means if we were to remove all of these rows, we would erase nearly 30% of our data. To tackle this more effectively, let's focus on each of these variables one by one.
 
 | Variable             | Number of Null Values |
 |----------------------|------------------------|
@@ -53,13 +53,13 @@ With this initial data cleaning done, I shifted to the task of dealing with null
 | `U.S._STATE`           | 0                      |
 | `OUTAGE.DURATION`      | 58                     |
 
-Since variables like `CLIMATE.REGION`, `CLIMATE.CATEGORY`, and `ANOMALY.LEVEL` are all specific data points that are not easy to reliably predict, and there are not that many null values for these categories, we will simply remove all rows where these columns are null. This deletion removed a total of 14 rows. Additionally, since we will eventually try to predict the OUTAGE.DURATION variable, it does not make sense to impute values here which would introduce bias into our prediction model. Therefore, we will also remove all rows where OUTAGE.DURATION is null. This deletion removed another 49 rows. In the process of these deletions, we inadvertently removed all rows where `OUTAGE.START` was null, which means we do not need to do any additional deletions for that column. For the moment, I will skip over `CUSTOMERS.AFFECTED` which will be covered next in the imputation section. This cleaning process left us with 1471 rows of data which is a large percentage of our original data and still plenty rows to perform a thorough analysis.
+Since variables like `CLIMATE.REGION`, `CLIMATE.CATEGORY`, and `ANOMALY.LEVEL` are all specific data points that are not easy to reliably predict, and there are not that many null values for these categories, we will simply remove all rows where these columns are null. This deletion removed a total of 14 rows. Additionally, since we will eventually try to predict the OUTAGE.DURATION variable, it does not make sense to impute values here which would introduce bias into our prediction model. Therefore, we will also remove all rows where OUTAGE.DURATION is null. This deletion removed another 49 rows. In the process of these deletions, we inadvertently removed all rows where `OUTAGE.START` was null, which means we do not need to do any additional deletions for that column. For the moment, I will skip over `CUSTOMERS.AFFECTED` which will be covered next in the imputation section. This cleaning process left us with 1471 rows of data which is a large percentage of our original data and still plenty of rows to perform a thorough analysis.
 
 ### Imputation
 
-The `CUSTOMERS.AFFECTED` column presents more of a challenge because it has 443 missing values. Removing all of these rows would significanlty reduce the dataset size, which could hinder the effectiveness of our predictive model. Instead, I will perform an imputation which attempts to accurately replace these values. 
+The `CUSTOMERS.AFFECTED` column presents more of a challenge because it has 443 missing values. Removing all of these rows would significantly reduce the dataset size, which could hinder the effectiveness of our predictive model. Instead, I will perform an imputation that attempts to accurately replace these values. 
 
-For the `CUSTOMERS.AFFECTED` variable, I decided to use a median imputation strategy grouped by `U.S._STATE`. Since these values appear to be missing at random, it is reasonable to impute them using typical values (median or mean). I choose the median specifically, because the data is extremely right skewed, and the median helps preserve the overall distribution more consistently. Additionally, underlying factors like population, geography, infrustructure, etc. would likely influence `CUSTOMERS.AFFECTED`. For this reason, I grouped by `U.S._STATE`, which helps capture these underlying patterns. Here is what the distributions of `CUSTOMERS.AFFECTED` looked like before and after imputation:
+For the `CUSTOMERS.AFFECTED` variable, I decided to use a median imputation strategy grouped by `U.S._STATE`. Since these values appear to be missing at random, it is reasonable to impute them using typical values (median or mean). I choose the median specifically, because the data is extremely right skewed, and the median helps preserve the overall distribution more consistently. Additionally, underlying factors like population, geography, infrastructure, etc. would likely influence `CUSTOMERS.AFFECTED`. For this reason, I grouped by `U.S._STATE`, which helps capture these underlying patterns. Here is what the distributions of `CUSTOMERS.AFFECTED` looked like before and after imputation:
 
 <iframe src="assets/figure1.html"
         width="800"
@@ -75,7 +75,7 @@ For the `CUSTOMERS.AFFECTED` variable, I decided to use a median imputation stra
         frameborder="0">
  </iframe>
 
-Despite imputation 443 missing values, the distribution appears to remain pretty consistent. With the previous deletions and imputation, we have successfully removed all rows with any null values:
+Despite the imputation of 443 missing values, the distribution appears to remain pretty consistent. With the previous deletions and imputation, we have successfully removed all rows with any null values:
 
 | Variable             | Number of Null Values |
 |----------------------|------------------------|
@@ -91,7 +91,7 @@ Despite imputation 443 missing values, the distribution appears to remain pretty
 
 ### Univariate Analysis
 
-In order to get a better understanding of the data before building a predictive model, I looked at various relationships between variables in the dataset. First, I conducted a couple univariate analyses, starting with the distribution of the `OUTAGE.DURATION`:
+In order to get a better understanding of the data before building a predictive model, I looked at various relationships between variables in the dataset. First, I conducted a couple of univariate analyses, starting with the distribution of the `OUTAGE.DURATION`:
  
  <iframe src="assets/figure3.html"
         width="800"
@@ -99,7 +99,7 @@ In order to get a better understanding of the data before building a predictive 
         frameborder="0">
  </iframe>
 
-This chart shows that a vast majority of the outages are very short, which would not be as negatively impactful to those in the outage region. Nevertheless, we see a relatively steady distribution of outages beyond even 24 or 48 hours, with a total of 82 outages that lasted over a week. These extra long outages would likely be the ones that a proper prediction of duration would yield most beneficial. Hopefully our predictive model will be able to find differences between the many short outages and the longer, more series outages.
+This chart shows that a vast majority of the outages are very short, which would not be as negatively impactful to those in the outage region. Nevertheless, we see a relatively steady distribution of outages beyond even 24 or 48 hours, with a total of 82 outages that lasted over a week. These extra-long outages would likely be the ones that a proper prediction of duration would yield the most benefit. Hopefully, our predictive model will be able to find differences between the many short outages and the longer, more series outages.
 
 Next, I looked at the distribution of the `CAUSE.CATEGORY` variable:
 
@@ -109,11 +109,11 @@ Next, I looked at the distribution of the `CAUSE.CATEGORY` variable:
         frameborder="0">
  </iframe>
 
-This visual shows that severe weather is the largest cause, followed relatively closely by intentional attacks. Seeing the difference in number of outages under each category will help verify the solidy of our prediction. This will help add nuance to our predictions, since causes with more data points (more common) may allow us to trust our model's output more than causes with less data points (less common).
+This visual shows that severe weather is the largest cause, followed relatively closely by intentional attacks. Seeing the difference in number of outages under each category will help verify the solidity of our prediction. This will help add nuance to our predictions, since causes with more data points (more common) may allow us to trust our model's output more than causes with fewer data points (less common).
 
 ### Bivariate Analysis
 
-Next I will continue my exploration with a bivariate analysis of a few variables. First, I looked at distribution of `OUTAGE.DURATION` across `CAUSE.CATEGORY`:
+Next, I will continue my exploration with a bivariate analysis of a few variables. First, I looked at the distribution of `OUTAGE.DURATION` across `CAUSE.CATEGORY`:
  
  <iframe src="assets/figure5.html"
         width="800"
@@ -121,7 +121,7 @@ Next I will continue my exploration with a bivariate analysis of a few variables
         frameborder="0">
  </iframe>
 
-This figure highlights the point that different outage causes have dramatically different distributions of their resulting power outage durations. This means that incorporating `CAUSE.CATEGORY` into out model could carry meaningful predictive weight.
+This figure highlights the point that different outage causes have dramatically different distributions of their resulting power outage durations. This means that incorporating `CAUSE.CATEGORY` into our model could carry meaningful predictive weight.
 
 Continuing, I looked at the relationship between `OUTAGE.DURATION` and `CUSTOMERS.AFFECTED`:
 
@@ -131,7 +131,7 @@ Continuing, I looked at the relationship between `OUTAGE.DURATION` and `CUSTOMER
         frameborder="0">
  </iframe>
 
-Although this graph seems to be somewhat chaotic at first glance, we do see that that for each cause there appears to be general underlying relationships between duration and customers affected. In instances like Severe Weather and Equipment Failure, this relationship seems more linear, while in instances like Intentional Attack and Fuel Supply Emergency, this relationship may be non-linear. Noting the linear and non-linear relationships between these variables will be useful when making our final predictive model.
+Although this graph seems to be somewhat chaotic at first glance, we do see that for each cause there appears to be general underlying relationships between duration and customers affected. In instances like Severe Weather and Equipment Failure, this relationship seems more linear, while in instances like Intentional Attack and Fuel Supply Emergency, this relationship may be non-linear. Noting the linear and non-linear relationships between these variables will be useful when making our final predictive model.
 
 ### Interesting Aggregates
 
@@ -151,7 +151,7 @@ Finally, for the last stage of my exploratory analysis, I looked at aggregate st
 | West                | 27.14         | 78.48        |
 | West North Central  | 16.28         | 47.79        |
 
-This table shows that `OUTAGE.DURATION` varies considerably across `CLIMATE.REGION`, pointing to the fact that it might be an important feature for prediction. This is likely because the region captures underlying factors such as weather patterns, infrustructure, and population dynamics, that impact outages.
+This table shows that `OUTAGE.DURATION` varies considerably across `CLIMATE.REGION`, pointing to the fact that it might be an important feature for prediction. This is likely because the region captures underlying factors such as weather patterns, infrastructure, and population dynamics, that impact outages.
 
 #### Outage Duration by Climate
 
@@ -178,7 +178,7 @@ Despite the climate type seeming like it would have predictive power, the table 
 | TRE           | 49.34         | 90.35         |
 | WECC          | 24.80         | 82.11         |
 
-Similarly to the first table, we see notable differences in `OUTAGE.DURATION` based on `NERC.REGION`. Since `NERC.REGION` also corresponds to large sections of the U.S., we might get some degree of redundancy including both `NERC.REGION` and `CLIMATE.REGION` in our final model. This introduces multicollinearity which would make certain linear models unstable, but that could be avoided using tree-based models. This is important to note, and will guide us to use only one of the two if incorporating a linear model.
+Similarly to the first table, we see notable differences in `OUTAGE.DURATION` based on `NERC.REGION`. Since `NERC.REGION` also corresponds to large sections of the U.S., we might get some degree of redundancy including both `NERC.REGION` and `CLIMATE.REGION` in our final model. This introduces multicollinearity which would make certain linear models unstable, but that could be avoided using tree-based models. This is important to note and will guide us to use only one of the two if incorporating a linear model.
 
 #### Outage Duration by State
 
@@ -236,7 +236,7 @@ Finally, we zoom into each region and see a large degree of variation across eac
 
 ## Framing a Prediction Problem
 
-For the final prediction, I will be trying to answer the question of 'Can we predict the duration of power outages?' This prediction will make use of the power outage dataset in order to predict the target variable `OUTAGE.DURATION`. Being able to accurately estimate the duration of outages could be incredibly valuable for guiding public expectations and both personal and government resource allocation during severe power outages. Since `OUTAGE.DURATION` is in the units of hours, which is a continuous variable, this is a regression problem. In order to make this realistic, I will only use variables that contain information that would be readily available shortly after a power outage has occured. Variables related to the location (`U.S._STATE`, `NERC.REGION`), the climate (`CLIMATE.REGION`, `CLIMATE.CATEGORY`, `ANOMALY.LEVEL`), the cause (`CAUSE.CATEGORY`), and the number of impacted customers (`CUSTOMERS.AFFECTED`), should all either be identifiable either immediately after or following a short inspection after the initial outage. For these reasons, I think all these variables are fair game. Finally, since this is a regression task and a situation where outliers (long outages) are very important to be predicted properly, I will be using Mean Squared Error to evaluate my model. The MSE will penalize larger errors more heavily, ensuring proper prediction of longer outages. I will also use R² as a normalized performance baseline to easily compare different iterations of the model.
+For the final prediction, I will be trying to answer the question "Can we predict the duration of power outages?" This prediction will make use of the power outage dataset to predict the target variable `OUTAGE.DURATION`. Being able to accurately estimate the duration of outages could be incredibly valuable for guiding public expectations and both personal and government resource allocation during severe power outages. Since `OUTAGE.DURATION` is in the units of hours, which is a continuous variable, this is a regression problem. In order to make this realistic, I will only use variables that contain information that would be readily available shortly after a power outage has occurred. Variables related to the location (`U.S._STATE`, `NERC.REGION`), the climate (`CLIMATE.REGION`, `CLIMATE.CATEGORY`, `ANOMALY.LEVEL`), the cause (`CAUSE.CATEGORY`), and the number of impacted customers (`CUSTOMERS.AFFECTED`), should all either be identifiable either immediately after or following a short inspection after the initial outage. For these reasons, I think all these variables are fair game. Finally, since this is a regression task and a situation where outliers (long outages) are very important to be predicted properly, I will be using Mean Squared Error to evaluate my model. The MSE will penalize larger errors more heavily, ensuring proper prediction of longer outages. I will also use R² as a normalized performance baseline to easily compare different iterations of the model.
 
 ## Baseline Model
 
@@ -247,7 +247,7 @@ For the baseline model, I will use the variables from earlier that seemed to hav
 -`U.S._STATE` (nominal)
 -`ANOMALY.LEVEL` (quantitative)
 
-This will give an initial model which I can evaluate and iterate upon. For this initial model I encoded all of the nominal variables with `OneHotEncoder` and standardized the quantitative variable with `StandardScaler` (which will not improve the effectiveness of the model but will allow us to analyze the coefficients if needed). In addition, to keep the model quick and simple, I used a `LinearRegression` model.
+This will give an initial model which I can evaluate and iterate upon. For this initial model, I encoded all of the nominal variables with `OneHotEncoder` and standardized the quantitative variable with `StandardScaler` (which will not improve the effectiveness of the model but will allow us to analyze the coefficients if needed). In addition, to keep the model quick and simple, I used a `LinearRegression` model.
 
  <iframe src="assets/figure7.html"
         width="800"
@@ -260,7 +260,7 @@ This will give an initial model which I can evaluate and iterate upon. For this 
 | Mean Squared Error | 10193.898269331174 |
 | R² Score | 0.08269072178571046 |
 
-Unfortunately our initial model only achieved a R² of 0.08, which means it barely beats out a model that just predicts the mean of `OUTAGE.DURATION`. We see from the graph above that my predictions (orange) do not seem to estimate the large spikes in the actual durations (blue) very well. These factors indicate that the model likely does not yet generalize well to unseen data. Nevertheless, the prediction do accurately predict some small aspect of the variance, giving us hope to improve our final model.
+Unfortunately, our initial model only achieved an R² of 0.08, which means it barely beats out a model that just predicts the mean of `OUTAGE.DURATION`. We see from the graph above that my predictions (orange) do not seem to estimate the large spikes in the actual durations (blue) very well. These factors indicate that the model likely does not yet generalize well to unseen data. Nevertheless, the prediction does accurately predict some small aspects of the variance, giving us hope to improve our final model.
 
 ## Final Model
 
@@ -277,7 +277,7 @@ In addition, I will engineer a few new variables from our given list to help bet
 1. `Polynomial(5)`: I added a polynomial degree five transformation to both of the quantitative variables. As mentioned earlier, `CUSTOMERS.AFFECTED` clearly has a non-linear relationship with `OUTAGE.DURATION` which could be better represented with this polynomial form. Additionally, `OUTAGE.DURATION` seems to fluctuate between increasing and decreasing as `ANOMALY.LEVEL` increases. I choose polynomial degree 5 in order to capture multiple changes in directions as described.
 2. `CAUSE.CATEGORY` Flag: I created a flag based on `CAUSE.CATEGORY` which shows a 1 if the outage cause was *severe weather* or *fuel supply emergency* and a 0 otherwise. This was motivated by the graph in *Bivariate Analysis* that shows these categories having substantially longer power outages than other causes. By flagging these categories, it allows the model to specifically give an additional weight to these causes which likely have distinct impacts on outage duration.
 
-Finally, I decided to switch to a `RandomForestRegressor` to better capture the non-linear relationship between these variables and to improve model stability despite the collinearity mentioned earlier. In addition, I will use `GridSearchCV`, which will use cross-validation in order to best tune the models hyperparameters under *neg_mean_squared_error*. I will tune the `RandomForestRegressor`'s:
+Finally, I decided to switch to a `RandomForestRegressor` to better capture the non-linear relationship between these variables and to improve model stability despite the collinearity mentioned earlier. In addition, I will use `GridSearchCV`, which will use cross-validation to tune the model's hyperparameters under *neg_mean_squared_error*. I will tune the `RandomForestRegressor`'s:
 
 - `max_depth`: maximum depth of each tree; helps determine balance between bias and variance; values = `[10, 15, 20, 25]`
 - `n_estimators`: number of decision trees in forests; helps ensure stability and generalization of model; values = `[50, 100, 150, 200]`
@@ -304,5 +304,5 @@ With these parameters, here are the results of our improved final model:
 | Mean Squared Error | 10193.898269331174 | 8859.741271912088 |
 | R² Score | 0.08269072178571046 | 0.20274632367542234 |
 
-The R² has bumped up significantly to 0.20 which is a vast improvement over our initial model. Additionally, the MSE reduced by more than 1300, signaling a much better fit on testing data. Based on the graph above, we can clearly see that the predictions (orange) do a better job of capturing the larger spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline, giving us a solid foundation for predicting outage duration on unseen data. A model like this will hopefully make it easier for major power outages to be handeled by those affected and supported by local and national organizations in an impactful way.
+The R² has bumped up significantly to 0.20 which is a vast improvement over our initial model. Additionally, the MSE reduced by more than 1300, signaling a much better fit on testing data. Based on the graph above, we can see that the predictions (orange) do a better job of capturing the larger spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline, giving us a solid foundation for predicting outage duration on unseen data. A model like this will hopefully make it easier for major power outages to be handled by those affected and supported by local and national organizations in an impactful way.
  
