@@ -1,4 +1,5 @@
 # Can we predict the duration of major power outages?
+by Hayden Bradley (haydenmb@umich.edu)
 
 ## Introduction
 
