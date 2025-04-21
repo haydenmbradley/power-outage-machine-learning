@@ -117,7 +117,7 @@ Next I will continue my exploration with a bivariate analysis of a few variables
  
  <iframe src="assets/figure5.html"
         width="800"
-        height="500"
+        height="525"
         frameborder="0">
  </iframe>
 
