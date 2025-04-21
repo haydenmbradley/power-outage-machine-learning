@@ -281,15 +281,15 @@ Finally, I decided to switch to a `RandomForestRegressor` to better capture the 
 
 - `max_depth`: maximum depth of each tree; helps determine balance between bias and variance; values = []
 - `n_estimators`: number of decision trees in forests; helps ensure stability and generalization of model; values = []
-- `min_samples_split`: minimum samples required to split a node; reduces overfitting on noisy data; values = []
-- `min_samples_leaf`: minimum samples at a leaf node; improves generalization of model; values = []
+- `min_samples_split`: minimum samples required to split a node; reduces overfitting on noisy data; values = [2, 3, 4, 5]
+- `min_samples_leaf`: minimum samples at a leaf node; improves generalization of model; values = [1, 2, 3, 4]
 
 After performing `GridSearchCV` on these parameters, the model selected the following hyperparameters:
 
 - `max_depth` = W
 - `n_estimators` = X
-- `min_samples_split` = Y
-- `min_samples_leaf` = Z
+- `min_samples_split` = 2
+- `min_samples_leaf` = 2
 
 With these parameters, here are the results of our improved final model:
 
