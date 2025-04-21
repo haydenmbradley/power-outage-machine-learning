@@ -248,7 +248,7 @@ For the baseline model, I will use the variables from earlier that seemed to hav
 - `U.S._STATE` (nominal)
 - `ANOMALY.LEVEL` (quantitative)
 
-This will give an initial model which I can evaluate and iterate upon. For this initial model, I encoded all of the nominal variables with `OneHotEncoder` and standardized the quantitative variable with `StandardScaler` (which will not improve the effectiveness of the model but will allow us to analyze the coefficients if needed). In addition, to keep the model quick and simple, I used a `LinearRegression` model.
+This will give an initial model which I can evaluate and iterate upon. For this initial model, I encoded all of the nominal variables with `OneHotEncoder` and standardized the quantitative variable with `StandardScaler` (which will not improve the effectiveness of the model but will allow us to analyze the coefficients if needed). In addition, to keep the model quick and simple, I used a `LinearRegression` model. Here are the results of our baseline model:
 
  <iframe src="assets/figure7.html"
         width="800"
