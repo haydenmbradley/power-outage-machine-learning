@@ -179,7 +179,7 @@ Despite the climate type seeming like it would have predictive power, the table 
 | TRE           | 49.34         | 90.35         |
 | WECC          | 24.80         | 82.11         |
 
-Similarly to the first table, we see notable differences in `OUTAGE.DURATION` based on `NERC.REGION`. Since `NERC.REGION` also corresponds to large sections of the U.S., we might get some degree of redundancy when including both `NERC.REGION` and `CLIMATE.REGION` in our data. This introduces multicollinearity which would make certain linear models unstable; nevertheless, this could be avoided using tree-based models. This phenomenon is important to note and will guide us to use when structuring our final prediction model.
+Similarly to the first table, we see notable differences in `OUTAGE.DURATION` based on `NERC.REGION`. Since `NERC.REGION` also corresponds to large sections of the U.S., we might get some degree of redundancy when including both `NERC.REGION` and `CLIMATE.REGION` in our data. This introduces multicollinearity which would make certain linear models unstable; nevertheless, this could be avoided using tree-based models. This phenomenon is important to note and will guide us when structuring our final prediction model.
 
 #### Outage Duration by State
 
