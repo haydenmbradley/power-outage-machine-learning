@@ -266,9 +266,9 @@ Unfortunately our initial model only achieved a R² of 0.08, which means it bare
 
 Our final model will take in all the variables from our previous model and incorporate additional ones that might edge our final predictions closer to the real values. These new variables will consist of: 
 
--`CUSTOMERS.AFFECTED` (quantitative): The *Bivariate Analysis* section showed that this variable might contain both linear and non-linear relationships with `OUTAGE.DURATION` which will likely aid our final model's predictive power
--`CLIMATE.CATEGORY` (nominal): As explained in the *Interesting Aggregates* section, this variable might provide some predictive power beyond `CLIMATE.REGION`
--`NERC.REGION` (nominal): As touched on in *Interesting Aggregates*, this variable will provide slight nuance to the `CLIMATE.REGION` variable; multi-collinearity will not be a problem if using a tree-based final model
+- `CUSTOMERS.AFFECTED` (quantitative): The *Bivariate Analysis* section showed that this variable might contain both linear and non-linear relationships with `OUTAGE.DURATION` which will likely aid our final model's predictive power
+- `CLIMATE.CATEGORY` (nominal): As explained in the *Interesting Aggregates* section, this variable might provide some predictive power beyond `CLIMATE.REGION`
+- `NERC.REGION` (nominal): As touched on in *Interesting Aggregates*, this variable will provide slight nuance to the `CLIMATE.REGION` variable; multi-collinearity will not be a problem if using a tree-based final model
 
 We will continue to use mean squared error to evaluate our final model for the same reasons as before (and similarly incorporating R² as a benchmark).
 
@@ -277,7 +277,21 @@ In addition, I will engineer a few new variables from our given list to help bet
 1. `Polynomial(5)`: I added a polynomial degree five transformation to both of the quantitative variables. As mentioned earlier, `CUSTOMERS.AFFECTED` clearly has a non-linear relationship with `OUTAGE.DURATION` which could be better represented with this polynomial form. Additionally, `OUTAGE.DURATION` seems to fluctuate between increasing and decreasing as `ANOMALY.LEVEL` increases. I choose polynomial degree 5 in order to capture multiple changes in directions as described.
 2. `CAUSE.CATEGORY` Flag: I created a flag based on `CAUSE.CATEGORY` which shows a 1 if the outage cause was *severe weather* or *fuel supply emergency* and a 0 otherwise. This was motivated by the graph in *Bivariate Analysis* that shows these categories having substantially longer power outages than other causes. By flagging these categories, it allows the model to specifically give an additional weight to these causes which likely have distinct impacts on outage duration.
 
-Finally, I decided to switch to a random forest regressor to better capture the non-linear relationship between these variables, and to create stability despite some likely collinearity between variables mentioned earlier. In addition, I will use grid search CV on the random forest max depth and number of estimators. The max depth with help find a good balance between bias and variance, and the n_estimators will make sure the model takes into account enough trees so that it generalizes well to new data.
+Finally, I decided to switch to a `RandomForestRegressor` to better capture the non-linear relationship between these variables and to improve model stability despite the collinearity mentioned earlier. In addition, I will use `GridSearchCV`, which will use cross-validation in order to best tune the models hyperparameters under *neg_mean_squared_error*. I will tune the `RandomForestRegressor`'s:
+
+- `max_depth`: maximum depth of each tree; helps determine balance between bias and variance; values = []
+- `n_estimators`: number of decision trees in forests; helps ensure stability and generalization of model; values = []
+- `min_samples_split`: minimum samples required to split a node; reduces overfitting on noisy data; values = []
+- `min_samples_leaf`: minimum samples at a leaf node; improves generalization of model; values = []
+
+After performing `GridSearchCV` on these parameters, the model selected the following hyperparameters:
+
+- `max_depth` = W
+- `n_estimators` = X
+- `min_samples_split` = Y
+- `min_samples_leaf` = Z
+
+With these parameters, here are the results of our improved final model:
 
  <iframe src="assets/figure8.html"
         width="800"
@@ -290,5 +304,5 @@ Finally, I decided to switch to a random forest regressor to better capture the 
 | Mean Squared Error | 10193.898269331174 | 9066.514600721574 |
 | R² Score | 0.08269072178571046 | 0.18413959561194515 |
 
-Our R² has bumped up to 0.18 which is a vast improvement over our initial model, while reducing our MSE by more than 1000. In addition, we can clearly see based on the graph above that the predictions (orange) do a better job of capturing the spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline, giving us a solid starting point for predicting outage duration on unseen data.
+The R² has bumped up significantly to 0.18 which is a vast improvement over our initial model. Additionally, the MSE reduced by more than 1000, signaling a much better fit on testing data. Based on the graph above, we can clearly see that the predictions (orange) do a better job of capturing the larger spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline, giving us a solid foundation for predicting outage duration on unseen data. A model like this will hopefully make it easier for major power outages to be handeled by those affected and supported by local and national organizations.
  
