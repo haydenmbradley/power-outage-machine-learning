@@ -256,7 +256,7 @@ This will give an initial model which I can evaluate and iterate upon. For this 
         frameborder="0">
  </iframe>
 
-| Performance Metric | Performance |
+| Performance Metric | Performance (Test Data) |
 |----------|----------|
 | Mean Squared Error | 10193.898269331174 |
 | R² Score | 0.08269072178571046 |
@@ -300,7 +300,7 @@ With these parameters, here are the results of our improved final model:
         frameborder="0">
  </iframe>
 
- | Performance Metric | Initial Performance | Final Performance |
+ | Performance Metric | Baseline Model Performance (Test Data) | Final Model Performance (Test Data) |
 |----------|----------|----------|
 | Mean Squared Error | 10193.898269331174 | 8859.741271912088 |
 | R² Score | 0.08269072178571046 | 0.20274632367542234 |
