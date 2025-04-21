@@ -301,8 +301,8 @@ With these parameters, here are the results of our improved final model:
 
  | Performance Metric | Initial Performance | Final Performance |
 |----------|----------|----------|
-| Mean Squared Error | 10193.898269331174 | 9066.514600721574 |
-| R² Score | 0.08269072178571046 | 0.18413959561194515 |
+| Mean Squared Error | 10193.898269331174 | 8859.741271912088 |
+| R² Score | 0.08269072178571046 | 0.20274632367542234 |
 
-The R² has bumped up significantly to 0.18 which is a vast improvement over our initial model. Additionally, the MSE reduced by more than 1000, signaling a much better fit on testing data. Based on the graph above, we can clearly see that the predictions (orange) do a better job of capturing the larger spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline, giving us a solid foundation for predicting outage duration on unseen data. A model like this will hopefully make it easier for major power outages to be handeled by those affected and supported by local and national organizations.
+The R² has bumped up significantly to 0.20 which is a vast improvement over our initial model. Additionally, the MSE reduced by more than 1300, signaling a much better fit on testing data. Based on the graph above, we can clearly see that the predictions (orange) do a better job of capturing the larger spikes in the actual outage durations (blue) which was one of the most important goals for our model. By capturing more non-linear relationships and incorporating more helpful inputs, our model has clearly improved over the baseline, giving us a solid foundation for predicting outage duration on unseen data. A model like this will hopefully make it easier for major power outages to be handeled by those affected and supported by local and national organizations in an impactful way.
  
