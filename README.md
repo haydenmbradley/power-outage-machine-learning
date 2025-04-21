@@ -243,10 +243,10 @@ For the final prediction, I will be trying to answer the question "Can we predic
 
 For the baseline model, I will use the variables from earlier that seemed to have the most obvious predictive impact and that could be immediately determined once the location of the power outage is determined. These specific variables are:
 
--`CAUSE.CATEGORY` (nominal)
--`CLIMATE.REGION` (nominal)
--`U.S._STATE` (nominal)
--`ANOMALY.LEVEL` (quantitative)
+- `CAUSE.CATEGORY` (nominal)
+- `CLIMATE.REGION` (nominal)
+- `U.S._STATE` (nominal)
+- `ANOMALY.LEVEL` (quantitative)
 
 This will give an initial model which I can evaluate and iterate upon. For this initial model, I encoded all of the nominal variables with `OneHotEncoder` and standardized the quantitative variable with `StandardScaler` (which will not improve the effectiveness of the model but will allow us to analyze the coefficients if needed). In addition, to keep the model quick and simple, I used a `LinearRegression` model.
 
